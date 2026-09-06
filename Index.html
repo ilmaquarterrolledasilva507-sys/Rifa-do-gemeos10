@@ -1,1 +1,1169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>RIFA DO GÊMEOS</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f3f5f7;
+    color:#222;
+}
+
+header{
+    background:#003370;
+    color:#fff;
+    padding:20px;
+    text-align:center;
+}
+
+header h1{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+header p{
+    font-size:15px;
+}
+
+.container{
+    width:100%;
+    max-width:900px;
+    margin:20px auto;
+    padding:0 15px;
+}
+
+.card{
+    background:#fff;
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.banner{
+    width:100%;
+    max-height:420px;
+    object-fit:cover;
+    border-radius:12px;
+    display:block;
+}
+
+.titulo{
+    text-align:center;
+    margin:18px 0 8px;
+    color:#003370;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.preco{
+    text-align:center;
+    font-size:19px;
+    margin-bottom:18px;
+}
+
+.preco strong{
+    color:#008f39;
+}
+
+h2{
+    color:#003370;
+    margin-bottom:15px;
+    font-size:21px;
+}
+
+.quantidades{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+}
+
+.quantidades button,
+.manual button{
+    border:0;
+    background:#003370;
+    color:white;
+    padding:13px 5px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.quantidades button:hover,
+.manual button:hover{
+    background:#0055aa;
+}
+
+.quantidades button.ativo{
+    background:#008f39;
+}
+
+.manual{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+.manual input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.info{
+    background:#eef6ff;
+    border-left:4px solid #003370;
+    padding:12px;
+    border-radius:7px;
+    margin-bottom:15px;
+}
+
+#numerosGerados{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
+
+.numero{
+    background:#003370;
+    color:#fff;
+    padding:9px 12px;
+    border-radius:7px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.form-group{
+    margin-bottom:14px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.form-group input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.total{
+    background:#e9f8ef;
+    border-radius:9px;
+    padding:15px;
+    margin:15px 0;
+    font-size:19px;
+    text-align:center;
+}
+
+.total strong{
+    color:#008f39;
+}
+
+.btn-comprar{
+    width:100%;
+    border:0;
+    background:#008f39;
+    color:#fff;
+    padding:16px;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-comprar:hover{
+    background:#00762f;
+}
+
+.btn-comprar:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+#pixArea{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+    border-top:1px solid #ddd;
+    padding-top:20px;
+}
+
+#pixQrCode{
+    width:260px;
+    max-width:100%;
+    margin:15px auto;
+    display:block;
+}
+
+.pix-payload{
+    background:#f5f5f5;
+    padding:12px;
+    border-radius:8px;
+    word-break:break-all;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.btn-copiar{
+    background:#003370;
+    color:#fff;
+    border:0;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.status{
+    margin-top:15px;
+    padding:12px;
+    border-radius:8px;
+    background:#fff3cd;
+    color:#664d03;
+    font-weight:bold;
+}
+
+.sucesso{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.erro{
+    background:#f8d7da;
+    color:#842029;
+}
+
+@media(max-width:600px){
+
+    header h1{
+        font-size:23px;
+    }
+
+    .quantidades{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .titulo{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>RIFA DO GÊMEOS</h1>
+    <p>Participe agora e concorra!</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <!-- MANTENHA A SUA IMAGEM AQUI -->
+        <img
+            src="https://via.placeholder.com/900x400?text=RIFA+DO+G%C3%8AMEOS"
+            alt="Rifa do Gêmeos"
+            class="banner"
+        >
+
+        <div class="titulo">
+            RIFA DO GÊMEOS
+        </div>
+
+        <div class="preco">
+            Cada cota custa <strong>R$ 1,20</strong>
+        </div>
+
+        <h2>Escolha a quantidade</h2>
+
+        <div class="quantidades">
+
+            <button type="button" data-qtd="1">1</button>
+            <button type="button" data-qtd="2">2</button>
+            <button type="button" data-qtd="3">3</button>
+            <button type="button" data-qtd="4">4</button>
+            <button type="button" data-qtd="5">5</button>
+
+            <button type="button" data-qtd="10">10</button>
+            <button type="button" data-qtd="20">20</button>
+            <button type="button" data-qtd="30">30</button>
+            <button type="button" data-qtd="50">50</button>
+            <button type="button" data-qtd="100">100</button>
+
+        </div>
+
+        <div class="manual">
+
+            <input
+                type="number"
+                id="quantidadeManual"
+                min="1"
+                max="100"
+                placeholder="Digite a quantidade"
+            >
+
+            <button type="button" id="btnManual">
+                OK
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Seus números</h2>
+
+        <div class="info">
+            Os números serão gerados automaticamente quando você escolher a quantidade.
+        </div>
+
+        <div id="numerosGerados">
+            <span>Nenhum número gerado ainda.</span>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Seus dados</h2>
+
+        <form id="formCompra">
+
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    placeholder="Digite seu nome"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+
+                <input
+                    type="text"
+                    id="cpf"
+                    maxlength="14"
+                    placeholder="000.000.000-00"
+                    inputmode="numeric"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">WhatsApp</label>
+
+                <input
+                    type="text"
+                    id="whatsapp"
+                    maxlength="15"
+                    placeholder="(82) 99999-9999"
+                    inputmode="tel"
+                    required
+                >
+            </div>
+
+            <div class="total">
+                Total:
+                <strong id="valorTotal">R$ 0,00</strong>
+            </div>
+
+            <button
+                type="submit"
+                class="btn-comprar"
+                id="btnComprar"
+            >
+                Gerar Pix e Comprar
+            </button>
+
+        </form>
+
+        <div id="pixArea">
+
+            <h2>Pagamento Pix</h2>
+
+            <p>
+                Escaneie o QR Code ou copie o código Pix.
+            </p>
+
+            <img
+                id="pixQrCode"
+                alt="QR Code Pix"
+            >
+
+            <div
+                class="pix-payload"
+                id="pixPayload"
+            ></div>
+
+            <button
+                type="button"
+                class="btn-copiar"
+                id="btnCopiarPix"
+            >
+                Copiar código Pix
+            </button>
+
+            <div
+                class="status"
+                id="statusPagamento"
+            >
+                Aguardando pagamento...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let quantidadeSelecionada = 0;
+let numerosGerados = [];
+let paymentId = null;
+
+const VALOR_COTA = 1.20;
+
+
+/* =========================
+   GERAR NÚMEROS
+========================= */
+
+function gerarNumeros(qtd){
+
+    const numeros = new Set();
+
+    while(numeros.size < qtd){
+
+        const numero =
+            String(
+                Math.floor(Math.random() * 900000) + 100000
+            );
+
+        numeros.add(numero);
+    }
+
+    return [...numeros];
+}
+
+
+/* =========================
+   MOSTRAR NÚMEROS
+========================= */
+
+function mostrarNumeros(numeros){
+
+    const container =
+        document.getElementById('numerosGerados');
+
+    if(!numeros || numeros.length === 0){
+
+        container.innerHTML =
+            '<span>Nenhum número gerado ainda.</span>';
+
+        return;
+    }
+
+    container.innerHTML = '';
+
+    numeros.forEach(numero => {
+
+        const div =
+            document.createElement('div');
+
+        div.className = 'numero';
+
+        div.textContent = numero;
+
+        container.appendChild(div);
+
+    });
+}
+
+
+/* =========================
+   ATUALIZAR TELA
+========================= */
+
+function atualizarTela(){
+
+    const valor =
+        quantidadeSelecionada * VALOR_COTA;
+
+    document.getElementById('valorTotal').textContent =
+        valor.toLocaleString('pt-BR',{
+            style:'currency',
+            currency:'BRL'
+        });
+
+    numerosGerados =
+        gerarNumeros(quantidadeSelecionada);
+
+    mostrarNumeros(numerosGerados);
+
+}
+
+
+/* =========================
+   QUANTIDADES
+========================= */
+
+function selecionarQuantidade(qtd){
+
+    qtd = Number(qtd);
+
+    if(!Number.isInteger(qtd)){
+        return;
+    }
+
+    if(qtd < 1){
+        qtd = 1;
+    }
+
+    if(qtd > 100){
+        qtd = 100;
+    }
+
+    quantidadeSelecionada = qtd;
+
+    document
+        .querySelectorAll('[data-qtd]')
+        .forEach(botao => {
+
+            botao.classList.toggle(
+                'ativo',
+                Number(botao.dataset.qtd) === qtd
+            );
+
+        });
+
+    document.getElementById(
+        'quantidadeManual'
+    ).value = qtd;
+
+    atualizarTela();
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+document
+    .querySelectorAll('[data-qtd]')
+    .forEach(botao => {
+
+        botao.addEventListener(
+            'click',
+            () => {
+
+                selecionarQuantidade(
+                    botao.dataset.qtd
+                );
+
+            }
+        );
+
+    });
+
+
+document
+    .getElementById('btnManual')
+    .addEventListener('click', () => {
+
+        const qtd =
+            Number(
+                document.getElementById(
+                    'quantidadeManual'
+                ).value
+            );
+
+        selecionarQuantidade(qtd);
+
+    });
+
+
+/* =========================
+   CPF
+========================= */
+
+function formatarCPF(valor){
+
+    let v =
+        String(valor || '')
+        .replace(/\D/g,'')
+        .slice(0,11);
+
+    v =
+        v.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+        );
+
+    v =
+        v.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+        );
+
+    v =
+        v.replace(
+            /(\d{3})(\d{1,2})$/,
+            '$1-$2'
+        );
+
+    return v;
+}
+
+
+document
+    .getElementById('cpf')
+    .addEventListener('input', function(){
+
+        this.value =
+            formatarCPF(this.value);
+
+    });
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function formatarWhats(valor){
+
+    let v =
+        String(valor || '')
+        .replace(/\D/g,'')
+        .slice(0,11);
+
+    if(v.length <= 2){
+        return v;
+    }
+
+    if(v.length <= 7){
+
+        return '(' +
+            v.slice(0,2) +
+            ') ' +
+            v.slice(2);
+
+    }
+
+    return '(' +
+        v.slice(0,2) +
+        ') ' +
+        v.slice(2,7) +
+        '-' +
+        v.slice(7);
+
+}
+
+
+document
+    .getElementById('whatsapp')
+    .addEventListener('input', function(){
+
+        this.value =
+            formatarWhats(this.value);
+
+    });
+
+
+/* =========================
+   COPIAR PIX
+========================= */
+
+document
+    .getElementById('btnCopiarPix')
+    .addEventListener('click', async () => {
+
+        const payload =
+            document.getElementById(
+                'pixPayload'
+            ).textContent;
+
+        if(!payload){
+            return;
+        }
+
+        try{
+
+            await navigator.clipboard.writeText(
+                payload
+            );
+
+            alert('Código Pix copiado!');
+
+        }catch(e){
+
+            alert(
+                'Não foi possível copiar automaticamente. Selecione e copie o código Pix.'
+            );
+
+        }
+
+    });
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+document
+    .getElementById('formCompra')
+    .addEventListener('submit', async function(event){
+
+        event.preventDefault();
+
+        const nome =
+            document.getElementById('nome')
+            .value.trim();
+
+        const cpf =
+            document.getElementById('cpf')
+            .value.trim();
+
+        const whatsapp =
+            document.getElementById('whatsapp')
+            .value.trim();
+
+        const btn =
+            document.getElementById('btnComprar');
+
+        if(quantidadeSelecionada < 1){
+
+            alert(
+                'Escolha primeiro a quantidade de cotas.'
+            );
+
+            return;
+        }
+
+        if(!nome){
+
+            alert('Digite seu nome.');
+
+            return;
+        }
+
+        if(
+            cpf.replace(/\D/g,'').length !== 11
+        ){
+
+            alert('Digite um CPF válido.');
+
+            return;
+        }
+
+        if(
+            whatsapp.replace(/\D/g,'').length < 10
+        ){
+
+            alert('Digite um WhatsApp válido.');
+
+            return;
+        }
+
+
+        btn.disabled = true;
+
+        btn.textContent =
+            'Gerando Pix...';
+
+
+        try{
+
+            const response =
+                await fetch(
+                    '/api/criar-pagamento',
+                    {
+                        method:'POST',
+
+                        headers:{
+                            'Content-Type':
+                                'application/json'
+                        },
+
+                        body:JSON.stringify({
+
+                            nome: nome,
+
+                            cpf:
+                                cpf.replace(/\D/g,''),
+
+                            whatsapp:
+                                whatsapp.replace(/\D/g,''),
+
+                            quantidade:
+                                quantidadeSelecionada,
+
+                            numeros:
+                                numerosGerados
+
+                        })
+                    }
+                );
+
+
+            /*
+             * NÃO usar response.json()
+             * diretamente.
+             *
+             * Assim conseguimos mostrar
+             * o erro mesmo se o servidor
+             * retornar HTML.
+             */
+
+            const textoResposta =
+                await response.text();
+
+            let data;
+
+            try{
+
+                data =
+                    JSON.parse(
+                        textoResposta
+                    );
+
+            }catch(e){
+
+                throw new Error(
+                    `Servidor retornou uma resposta inválida (HTTP ${response.status}). Verifique o server.js e as variáveis da Vercel.`
+                );
+
+            }
+
+
+            if(
+                !response.ok ||
+                data.error
+            ){
+
+                throw new Error(
+                    data.error ||
+                    `Erro HTTP ${response.status}`
+                );
+
+            }
+
+
+            paymentId =
+                data.paymentId;
+
+
+            /*
+             * O servidor é quem define
+             * os números oficiais.
+             */
+
+            if(
+                Array.isArray(data.numeros) &&
+                data.numeros.length
+            ){
+
+                numerosGerados =
+                    data.numeros;
+
+                mostrarNumeros(
+                    numerosGerados
+                );
+
+            }
+
+
+            const pixArea =
+                document.getElementById(
+                    'pixArea'
+                );
+
+            pixArea.style.display =
+                'block';
+
+
+            const qr =
+                document.getElementById(
+                    'pixQrCode'
+                );
+
+            if(data.qrCodeImage){
+
+                qr.src =
+                    data.qrCodeImage;
+
+                qr.style.display =
+                    'block';
+
+            }else{
+
+                qr.style.display =
+                    'none';
+
+            }
+
+
+            document.getElementById(
+                'pixPayload'
+            ).textContent =
+                data.qrCodePayload || '';
+
+
+            document.getElementById(
+                'statusPagamento'
+            ).textContent =
+                'Aguardando pagamento...';
+
+            document.getElementById(
+                'statusPagamento'
+            ).className =
+                'status';
+
+
+            pixArea.scrollIntoView({
+                behavior:'smooth',
+                block:'center'
+            });
+
+
+            /*
+             * Começa a verificar
+             * o pagamento.
+             */
+
+            verificarPagamento();
+
+        }catch(error){
+
+            console.error(error);
+
+            alert(
+                error.message ||
+                'Não foi possível gerar o Pix.'
+            );
+
+            btn.disabled = false;
+
+            btn.textContent =
+                'Gerar Pix e Comprar';
+
+        }
+
+    });
+
+
+/* =========================
+   VERIFICAR PAGAMENTO
+========================= */
+
+async function verificarPagamento(){
+
+    if(!paymentId){
+        return;
+    }
+
+    try{
+
+        const response =
+            await fetch(
+                '/api/status/' +
+                encodeURIComponent(paymentId)
+            );
+
+
+        const texto =
+            await response.text();
+
+        let data;
+
+        try{
+
+            data =
+                JSON.parse(texto);
+
+        }catch(e){
+
+            console.error(
+                'Resposta inválida:',
+                texto
+            );
+
+            return;
+
+        }
+
+
+        if(
+            data.status === 'RECEIVED' ||
+            data.status === 'CONFIRMED'
+        ){
+
+            const status =
+                document.getElementById(
+                    'statusPagamento'
+                );
+
+            status.textContent =
+                '✅ PAGAMENTO CONFIRMADO! Seus números estão reservados.';
+
+            status.className =
+                'status sucesso';
+
+
+            if(
+                Array.isArray(data.numeros)
+            ){
+
+                numerosGerados =
+                    data.numeros;
+
+                mostrarNumeros(
+                    numerosGerados
+                );
+
+            }
+
+            return;
+
+        }
+
+
+        /*
+         * Continua consultando
+         * a cada 5 segundos.
+         */
+
+        setTimeout(
+            verificarPagamento,
+            5000
+        );
+
+    }catch(error){
+
+        console.error(
+            'Erro ao consultar pagamento:',
+            error
+        );
+
+        setTimeout(
+            verificarPagamento,
+            7000
+        );
+
+    }
+
+}
+
+
+/* =========================
+   TECLADO
+========================= */
+
+document.addEventListener(
+    'keydown',
+    function(event){
+
+        /*
+         * Não interfere enquanto
+         * o usuário está digitando
+         * em um campo.
+         */
+
+        const tag =
+            document.activeElement.tagName;
+
+        if(
+            tag === 'INPUT' ||
+            tag === 'TEXTAREA'
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            event.key === '+' ||
+            event.key === '='
+        ){
+
+            selecionarQuantidade(
+                quantidadeSelecionada + 1
+            );
+
+        }
+
+
+        if(event.key === '-'){
+
+            selecionarQuantidade(
+                quantidadeSelecionada - 1
+            );
+
+        }
+
+
+        if(event.key === '1'){
+            selecionarQuantidade(1);
+        }
+
+        if(event.key === '2'){
+            selecionarQuantidade(2);
+        }
+
+        if(event.key === '3'){
+            selecionarQuantidade(3);
+        }
+
+        if(event.key === '4'){
+            selecionarQuantidade(4);
+        }
+
+        if(event.key === '5'){
+            selecionarQuantidade(5);
+        }
+
+    }
+);
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+selecionarQuantidade(1);
+
+</script>
+
+</body>
+</html>
