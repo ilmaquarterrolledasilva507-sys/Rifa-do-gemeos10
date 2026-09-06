@@ -1,5 +1,4 @@
-hereserver.js
-require('dotenv').config();
+ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
@@ -66,7 +65,7 @@ async function asaas(path, options = {}) {
 
     try {
         dados = JSON.parse(texto);
-    } catch {
+    } catch (erro) {
         throw new Error(
             `Asaas retornou uma resposta inválida (HTTP ${resposta.status}).`
         );
